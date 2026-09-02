@@ -11,7 +11,7 @@ import heroImg from "../assets/home-img/heroImg.png";
   description="Browse the full MYANSHI menu — sushi, dishes, drinks, and desserts, with current promotions across every branch."
 >
   <main>
-    <PageHero title="Our Menu" crumb="Menu" image={heroImg} />
+    <PageHero title="Our Menu" crumbs={[{ label: "Menu" }]} image={heroImg} />
     <MenuGrid />
     <Testimonials />
   </main>

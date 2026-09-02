@@ -3,7 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import PageHero from "../../components/PageHero.astro";
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
-import { blogPosts } from "../../data/blog";
+import { blogPosts, authors } from "../../data/blog";
 
 export function getStaticPaths() {
   return blogPosts.map((post) => ({
@@ -13,38 +13,120 @@ export function getStaticPaths() {
 }
 
 const { post } = Astro.props;
+const author = authors[post.author];
+
+const socials = [
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com",
+    icon: "ph:facebook-logo-fill",
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com",
+    icon: "ph:instagram-logo-fill",
+  },
+  {
+    label: "TikTok",
+    href: "https://www.tiktok.com",
+    icon: "ph:tiktok-logo-fill",
+  },
+];
 ---
 
 <Layout title={`${post.title} - Myanshi Blog`} description={post.excerpt}>
   <main>
-    <PageHero title={post.title} crumb={post.title} image={post.image} />
+    <PageHero
+      title={post.title}
+      crumbs={[{ label: "Blog", href: "/blog" }, { label: post.shortTitle }]}
+      image={post.image}
+    />
 
     <article class="bg-cream">
       <div class="mx-auto max-w-3xl px-6 py-20 lg:px-10">
-        <div class="flex items-center gap-3 text-sm text-muted">
-          <Image
-            src={post.avatar}
-            alt={post.author}
-            width={36}
-            height={36}
-            class="h-9 w-9 rounded-full object-cover"
-          />
-          <span class="font-medium text-ink">{post.author}</span>
-          <span class="h-px w-6 bg-ink/20"></span>
-          <span>{post.date}</span>
-        </div>
+        {
+          post.content.map((block) => {
+            if (block.type === "heading") {
+              return (
+                <h2 class="font-display mt-12 text-2xl font-medium text-ink first:mt-0 sm:text-3xl">
+                  {block.text}
+                </h2>
+              );
+            }
+            if (block.type === "paragraph") {
+              return (
+                <p class="mt-4 text-base leading-relaxed text-muted">
+                  {block.text}
+                </p>
+              );
+            }
+            if (block.type === "list") {
+              return (
+                <ol class="mt-4 list-decimal space-y-2 pl-5 text-base leading-relaxed text-muted marker:font-semibold marker:text-primary">
+                  {block.items.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ol>
+              );
+            }
+            return (
+              <div class="mt-8 overflow-hidden rounded-2xl">
+                <Image
+                  src={post.image}
+                  alt={post.title}
+                  width={900}
+                  height={600}
+                  class="h-72 w-full object-cover sm:h-96"
+                />
+              </div>
+            );
+          })
+        }
 
-        <div class="mt-8 space-y-5">
-          {
-            post.body.map((paragraph) => (
-              <p class="text-base leading-relaxed text-ink/80">{paragraph}</p>
-            ))
-          }
+        <div
+          class="mt-14 flex flex-col gap-6 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-ink/5 sm:flex-row sm:p-8"
+        >
+          <Image
+            src={author.avatar}
+            alt={post.author}
+            width={128}
+            height={128}
+            class="h-28 w-28 shrink-0 rounded-xl object-cover"
+          />
+          <div>
+            <span
+              class="text-xs font-semibold uppercase tracking-wide text-primary"
+            >
+              Author
+            </span>
+            <h3 class="font-display mt-1 text-2xl font-medium text-ink">
+              {post.author}
+            </h3>
+            <p class="text-sm font-medium text-muted">{author.role}</p>
+            <p class="mt-3 max-w-lg text-sm leading-relaxed text-muted">
+              {author.bio}
+            </p>
+            <div class="mt-4 flex items-center gap-3">
+              {
+                socials.map((social) => (
+                  <a
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    class="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-white transition-colors hover:bg-primary-dark"
+                  >
+                    <Icon name={social.icon} class="h-4 w-4" />
+                  </a>
+                ))
+              }
+            </div>
+          </div>
         </div>
 
         <a
           href="/blog"
-          class="mt-12 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-dark"
+          class="mt-10 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-dark"
         >
           <Icon name="ph:arrow-left" class="h-4 w-4" />
           Back to Blog

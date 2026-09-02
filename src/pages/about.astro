@@ -15,7 +15,11 @@ import aboutHeroImg from "../assets/about-page/aboutHeroImg.jpg";
   description="Learn the story behind MYANSHI, meet our team, and find a branch near you across Yangon and Mandalay."
 >
   <main>
-    <PageHero title="We are MYANSHI" crumb="About Us" image={aboutHeroImg} />
+    <PageHero
+      title="We are MYANSHI"
+      crumbs={[{ label: "About Us" }]}
+      image={aboutHeroImg}
+    />
     <Highlights />
     <AboutUs cta={false} />
     <Journey />

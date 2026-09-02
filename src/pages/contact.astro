@@ -13,7 +13,11 @@ import heroImg from "../assets/home-img/adsImg.png";
   description="Book a table at any MYANSHI branch, find answers to common questions, or get in touch with our team."
 >
   <main>
-    <PageHero title="Contact Us" crumb="Contact" image={heroImg}>
+    <PageHero
+      title="Contact Us"
+      crumbs={[{ label: "Contact" }]}
+      image={heroImg}
+    >
       <BookingForm />
     </PageHero>
     <VisitRestaurants />

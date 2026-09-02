@@ -85,6 +85,8 @@ The Menu page's category filter (`MenuGrid.astro`) is client-rendered with a sma
 
 `/blog` reads every entry in `src/data/blog.ts` and renders them all on one page — there's currently exactly one page of posts, so `Pagination.astro` renders with Prev/Next disabled and only "1" shown, rather than fabricating extra pages. `src/pages/blog/[slug].astro` generates a static route per post via `getStaticPaths()`, so adding a new post just means adding an entry to `blog.ts`.
 
+Each post's `content` is a list of typed blocks (`heading` / `paragraph` / `list` / `image`) rather than a single string, so the detail page can render structured articles — numbered lists, an inline photo partway through, multiple `<h2>` sections — instead of one flat block of text. Author bylines (role, bio, avatar) are looked up from a shared `authors` map in the same file, keyed by name, so both the homepage teaser and every post by that author stay in sync automatically.
+
 Fonts (Geist Sans / Geist Mono) are self-hosted via `@fontsource-variable/geist` and `@fontsource-variable/geist-mono`, matching the optimized loading `next/font` previously provided.
 
 ## Commands

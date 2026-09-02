@@ -1,0 +1,39 @@
+---
+import "../styles/globals.css";
+import { Image } from "astro:assets";
+import notFoundImg from "../assets/404.png";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/myanshin.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>404 - Page Not Found | Myanshi</title>
+    <meta name="robots" content="noindex" />
+  </head>
+  <body
+    class="flex min-h-screen items-center justify-center bg-cream px-6 antialiased"
+  >
+    <div class="flex flex-col items-center text-center">
+      <Image
+        src={notFoundImg}
+        alt="404"
+        width={notFoundImg.width}
+        height={notFoundImg.height}
+        class="mx-auto w-64 sm:w-80 lg:w-96"
+      />
+      <p
+        class="mx-auto mt-6 max-w-sm text-center text-base leading-relaxed text-ink"
+      >
+        Eek! We've lost this page. Sorry about that. <a
+          href="/"
+          class="text-primary underline decoration-primary/40 underline-offset-2 hover:text-primary-dark"
+          >Click here to return home</a
+        >.
+      </p>
+    </div>
+  </body>
+</html>
