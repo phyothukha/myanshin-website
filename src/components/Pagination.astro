@@ -1,0 +1,70 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  currentPage: number;
+  totalPages: number;
+  basePath: string;
+}
+
+const { currentPage, totalPages, basePath } = Astro.props;
+
+const hrefFor = (page: number) =>
+  page === 1 ? basePath : `${basePath}/${page}`;
+
+const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+const hasPrev = currentPage > 1;
+const hasNext = currentPage < totalPages;
+---
+
+<nav
+  aria-label="Pagination"
+  class="mt-16 flex items-center justify-between gap-4"
+>
+  <a
+    href={hasPrev ? hrefFor(currentPage - 1) : undefined}
+    aria-disabled={!hasPrev}
+    class:list={[
+      "flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors",
+      hasPrev
+        ? "text-ink hover:text-primary"
+        : "pointer-events-none text-muted/40",
+    ]}
+  >
+    <Icon name="ph:caret-left" class="h-4 w-4" />
+    Prev
+  </a>
+
+  <div class="flex items-center gap-2">
+    {
+      pageNumbers.map((page) => (
+        <a
+          href={hrefFor(page)}
+          aria-current={page === currentPage ? "page" : undefined}
+          class:list={[
+            "flex h-9 w-9 items-center justify-center rounded-full text-sm font-medium transition-colors",
+            page === currentPage
+              ? "bg-primary text-white"
+              : "text-ink hover:bg-ink/5",
+          ]}
+        >
+          {page}
+        </a>
+      ))
+    }
+  </div>
+
+  <a
+    href={hasNext ? hrefFor(currentPage + 1) : undefined}
+    aria-disabled={!hasNext}
+    class:list={[
+      "flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors",
+      hasNext
+        ? "text-ink hover:text-primary"
+        : "pointer-events-none text-muted/40",
+    ]}
+  >
+    Next
+    <Icon name="ph:caret-right" class="h-4 w-4" />
+  </a>
+</nav>

@@ -1,39 +1,10 @@
 ---
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
-import blogImg1 from "../../../assets/blog-img/blogImg1.jpg";
-import blogImg2 from "../../../assets/blog-img/blogImg2.png";
-import blogImg3 from "../../../assets/blog-img/blogImg3.jpeg";
-import sophieMoore from "../../../assets/about-page/sophieMoore.png";
-import johnCarter from "../../../assets/about-page/johnCarter.png";
-import emily from "../../../assets/about-page/Emily.png";
+import { blogPosts } from "../../../data/blog";
 
-const featured = {
-  title: "How to prepare a delicious gluten-free sushi",
-  excerpt:
-    "Discover the essentials of making gluten-free sushi at home. From seasoned rice to fresh fillings, learn how to create restaurant-quality sushi in your own kitchen.",
-  image: blogImg1,
-  author: "Sophie Moore",
-  avatar: sophieMoore,
-  date: "Sep 20, 2024",
-};
-
-const posts = [
-  {
-    title: "5 traditional Japanese desserts you need to try",
-    image: blogImg2,
-    author: "John Carter",
-    avatar: johnCarter,
-    date: "Aug 12, 2024",
-  },
-  {
-    title: "The art of pairing sushi with the perfect drink",
-    image: blogImg3,
-    author: "Emily Tan",
-    avatar: emily,
-    date: "Jul 3, 2024",
-  },
-];
+const [featured, ...rest] = blogPosts;
+const posts = rest.slice(0, 2);
 ---
 
 <section id="articles" class="bg-cream">
@@ -49,7 +20,7 @@ const posts = [
         </h2>
       </div>
       <a
-        href="#articles"
+        href="/blog"
         class="inline-flex items-center gap-2 rounded-full border border-ink/15 px-7 py-3.5 text-sm font-semibold text-ink transition-colors hover:border-primary hover:text-primary"
       >
         All Articles
@@ -78,7 +49,7 @@ const posts = [
           {featured.excerpt}
         </p>
         <a
-          href="#articles"
+          href={`/blog/${featured.slug}`}
           class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-dark"
         >
           Read More
@@ -123,7 +94,7 @@ const posts = [
                 {post.title}
               </h3>
               <a
-                href="#articles"
+                href={`/blog/${post.slug}`}
                 class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-dark"
               >
                 Read More
