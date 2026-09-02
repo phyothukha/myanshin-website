@@ -1,0 +1,79 @@
+---
+import { locations } from "../../../data/locations";
+
+const fieldClass =
+  "w-full border-b border-ink/15 bg-transparent pb-2 pt-1 text-sm text-ink placeholder:text-muted/70 focus:border-primary focus:outline-none";
+const labelClass = "text-xs font-semibold uppercase tracking-wide text-muted";
+---
+
+<div
+  class="relative z-20 mx-6 -mt-10 rounded-2xl bg-white p-6 shadow-2xl sm:mx-auto sm:max-w-md sm:p-8 lg:absolute lg:-bottom-24 lg:right-6 lg:mx-0 lg:mt-0 lg:w-full lg:max-w-md xl:right-10"
+>
+  <form id="booking-form" class="space-y-5">
+    <div class="grid gap-5 sm:grid-cols-2">
+      <label class="block">
+        <span class={labelClass}>Full Name</span>
+        <input type="text" name="name" required class={fieldClass} />
+      </label>
+      <label class="block">
+        <span class={labelClass}>Email Address</span>
+        <input type="email" name="email" required class={fieldClass} />
+      </label>
+      <label class="block">
+        <span class={labelClass}>Phone Number</span>
+        <input type="tel" name="phone" required class={fieldClass} />
+      </label>
+      <label class="block">
+        <span class={labelClass}>Location</span>
+        <select name="location" required class={fieldClass}>
+          <option value="" disabled selected>Select a branch</option>
+          {
+            locations.map((location) => (
+              <option value={location.name}>{location.name}</option>
+            ))
+          }
+        </select>
+      </label>
+      <label class="block">
+        <span class={labelClass}>Date</span>
+        <input type="date" name="date" required class={fieldClass} />
+      </label>
+      <label class="block">
+        <span class={labelClass}>Time</span>
+        <input type="time" name="time" required class={fieldClass} />
+      </label>
+    </div>
+
+    <label class="block">
+      <span class={labelClass}>Additional Notes</span>
+      <textarea name="notes" rows="2" class={`${fieldClass} resize-none`}
+      ></textarea>
+    </label>
+
+    <button
+      type="submit"
+      class="w-full rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+    >
+      Book a Table
+    </button>
+  </form>
+
+  <div id="booking-success" class="hidden py-6 text-center">
+    <p class="font-display text-xl font-medium text-ink">Thank you!</p>
+    <p class="mt-2 text-sm leading-relaxed text-muted">
+      Your table request has been received. Our team will call you shortly to
+      confirm the details.
+    </p>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById("booking-form");
+  const success = document.getElementById("booking-success");
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    form.classList.add("hidden");
+    success?.classList.remove("hidden");
+  });
+</script>

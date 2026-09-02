@@ -37,8 +37,9 @@ Astro's standard `src/` convention. `public/` is the one exception — Astro req
 │   │   ├── Footer.astro           # shared across all pages
 │   │   ├── PageHero.astro         # shared breadcrumb banner for inner pages
 │   │   ├── AboutUs.astro          # shared teaser, used on / and /about
-│   │   ├── TiktokGallery.astro    # shared, used on / and /about
+│   │   ├── TiktokGallery.astro    # shared, used on /, /about, and /contact
 │   │   ├── Testimonials.astro     # shared, used on / and /menu
+│   │   ├── VisitRestaurants.astro # shared, used on /about and /contact
 │   │   ├── home/sections/         # page-specific sections for the homepage
 │   │   │   ├── Hero.astro
 │   │   │   ├── MenuCategories.astro
@@ -48,10 +49,12 @@ Astro's standard `src/` convention. `public/` is the one exception — Astro req
 │   │   ├── about/sections/        # page-specific sections for /about
 │   │   │   ├── Highlights.astro
 │   │   │   ├── Journey.astro
-│   │   │   ├── Team.astro
-│   │   │   └── VisitRestaurants.astro
-│   │   └── menu/sections/         # page-specific sections for /menu
-│   │       └── MenuGrid.astro
+│   │   │   └── Team.astro
+│   │   ├── menu/sections/         # page-specific sections for /menu
+│   │   │   └── MenuGrid.astro
+│   │   └── contact/sections/      # page-specific sections for /contact
+│   │       ├── BookingForm.astro
+│   │       └── Faq.astro
 │   ├── data/
 │   │   ├── locations.ts           # branch data, shared by Footer + VisitRestaurants
 │   │   └── menu.ts                # menu catalog, shared by Promotions + MenuGrid
@@ -60,7 +63,8 @@ Astro's standard `src/` convention. `public/` is the one exception — Astro req
 │   ├── pages/
 │   │   ├── index.astro            # homepage (route: /)
 │   │   ├── about.astro            # about page (route: /about)
-│   │   └── menu.astro             # full menu (route: /menu)
+│   │   ├── menu.astro             # full menu (route: /menu)
+│   │   └── contact.astro          # contact page (route: /contact)
 │   └── styles/
 │       └── globals.css            # Tailwind import + theme tokens
 ├── astro.config.mjs
@@ -68,7 +72,9 @@ Astro's standard `src/` convention. `public/` is the one exception — Astro req
 └── package.json
 ```
 
-Each new page goes under `src/pages/`, reusing `src/layouts/Layout.astro` and pulling in its own `src/components/<page>/sections/` folder for page-specific sections. Anything reused across two or more pages (`Header`, `Footer`, `PageHero`, `AboutUs`, `TiktokGallery`, `Testimonials`) stays flat in `src/components/`; if a page-specific section starts getting reused elsewhere, promote it out of its `sections/` folder the same way. Content that multiple sections need (menu items, branch info) lives once in `src/data/` and gets imported wherever it's shown, instead of being re-typed per component.
+Each new page goes under `src/pages/`, reusing `src/layouts/Layout.astro` and pulling in its own `src/components/<page>/sections/` folder for page-specific sections. Anything reused across two or more pages (`Header`, `Footer`, `PageHero`, `AboutUs`, `TiktokGallery`, `Testimonials`, `VisitRestaurants`) stays flat in `src/components/`; if a page-specific section starts getting reused elsewhere, promote it out of its `sections/` folder the same way. Content that multiple sections need (menu items, branch info) lives once in `src/data/` and gets imported wherever it's shown, instead of being re-typed per component.
+
+`PageHero.astro` also exposes a default `<slot />` so a page can inject floating content over the banner — `/contact` uses it for the booking form card. The booking form itself has no backend: submitting it just swaps in a confirmation message client-side, nothing is actually sent or stored anywhere yet.
 
 The Menu page's category filter (`MenuGrid.astro`) is client-rendered with a small inline script and supports deep links — `/menu?filter=drinks` pre-selects a tab on load, which is what the homepage's "Browse Menu" category rows link to.
 

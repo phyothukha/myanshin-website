@@ -1,0 +1,77 @@
+---
+import { Icon } from "astro-icon/components";
+
+const faqs = [
+  {
+    question: "What type of sushi do we offer?",
+    answer:
+      "From classic nigiri and maki to signature specialty rolls, our menu spans traditional Japanese sushi alongside modern twists crafted for local tastes.",
+  },
+  {
+    question: "Are your dishes suitable for vegetarians?",
+    answer:
+      "Yes — we offer a range of vegetarian dishes, including vegetable rolls, tofu-based mains, and our vegetarian ramen and soup.",
+  },
+  {
+    question: "Do you offer gluten-free options?",
+    answer:
+      "Several of our dishes can be prepared gluten-free. Let your server know when ordering and we'll guide you to the best options.",
+  },
+  {
+    question: "Can I make a reservation for dine-in?",
+    answer:
+      "Absolutely. Use the booking form above, call your nearest branch directly, or reach out through our social channels to reserve a table.",
+  },
+  {
+    question: "Do you provide delivery services?",
+    answer:
+      "Yes, all MYANSHI branches offer delivery within their local area. Contact your nearest branch for delivery zones and current wait times.",
+  },
+];
+---
+
+<section class="bg-cream">
+  <div class="mx-auto max-w-3xl px-6 py-24 lg:px-10">
+    <div class="text-center">
+      <div class="mx-auto flex w-fit items-center gap-3 text-primary">
+        <span class="h-px w-10 bg-primary"></span>
+        <span class="text-sm font-medium tracking-[0.2em]">よくある質問</span>
+        <span class="h-px w-10 bg-primary"></span>
+      </div>
+      <h2 class="font-display mt-4 text-4xl font-medium text-ink lg:text-5xl">
+        Frequently asked questions
+      </h2>
+      <p class="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted">
+        Discover the essence of Japanese cuisine with our fresh sushi, flavorful
+        dishes, refreshing drinks, and indulgent desserts, all crafted to bring
+        authentic flavors to your table.
+      </p>
+    </div>
+
+    <div class="mt-12 divide-y divide-ink/10">
+      {
+        faqs.map((faq, index) => (
+          <details class="group py-6 first:pt-0 last:pb-0">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-6 [&::-webkit-details-marker]:hidden">
+              <span class="flex items-baseline gap-4">
+                <span class="text-sm font-semibold text-muted">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span class="font-display text-lg font-medium text-ink">
+                  {faq.question}
+                </span>
+              </span>
+              <Icon
+                name="ph:plus"
+                class="h-5 w-5 shrink-0 text-primary transition-transform group-open:rotate-45"
+              />
+            </summary>
+            <p class="mt-4 max-w-2xl pl-9 text-sm leading-relaxed text-muted">
+              {faq.answer}
+            </p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
