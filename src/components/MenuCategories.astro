@@ -1,0 +1,89 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import ripple from "../assets/Home/adsAbsoluteImg.png";
+
+const categories = [
+  {
+    title: "Sushi",
+    description: "Fresh and handcrafted sushi, inspired by tradition.",
+    icon: "ph:fish-duotone",
+  },
+  {
+    title: "Dishes",
+    description:
+      "Delicious, hearty dishes that bring the true taste of Japan to your table.",
+    icon: "ph:cooking-pot-duotone",
+  },
+  {
+    title: "Drinks",
+    description: "Refreshing drinks to enhance your meal, from classic teas to vibrant cocktails.",
+    icon: "ph:wine-duotone",
+  },
+  {
+    title: "Desserts",
+    description: "Sweet traditional Japanese desserts to finish your meal.",
+    icon: "ph:cookie-duotone",
+  },
+];
+---
+
+<section id="menu" class="relative overflow-hidden bg-cream">
+  <Image
+    src={ripple}
+    alt=""
+    role="presentation"
+    width={485}
+    height={1529}
+    class="pointer-events-none absolute -right-16 top-0 h-full w-auto opacity-[0.06]"
+  />
+
+  <div
+    class="relative mx-auto grid max-w-7xl gap-12 px-6 pb-24 pt-32 lg:grid-cols-2 lg:gap-16 lg:px-10 lg:pt-40"
+  >
+    <div>
+      <div class="flex items-center gap-3 text-primary">
+        <span class="h-px w-10 bg-primary"></span>
+        <span class="text-sm font-medium tracking-[0.2em]">メニュー</span>
+      </div>
+      <h2 class="font-display mt-4 text-4xl font-medium text-ink lg:text-5xl">
+        Browse Menu
+      </h2>
+      <a
+        href="#menu"
+        class="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+      >
+        See More
+      </a>
+    </div>
+
+    <div class="divide-y divide-ink/10">
+      {
+        categories.map((category) => (
+          <a
+            href="#menu"
+            class="group flex items-start gap-5 py-6 first:pt-0 last:pb-0"
+          >
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+              <Icon name={category.icon} class="h-6 w-6" />
+            </span>
+            <span class="flex-1">
+              <span class="flex items-center justify-between gap-4">
+                <span class="font-display text-xl font-medium text-ink">
+                  {category.title}
+                </span>
+                <Icon
+                  name="ph:arrow-right"
+                  class="h-5 w-5 shrink-0 text-ink/40 transition-transform group-hover:translate-x-1 group-hover:text-primary"
+                />
+              </span>
+              <span class="mt-1.5 block max-w-sm text-sm leading-relaxed text-muted">
+                {category.description}
+              </span>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

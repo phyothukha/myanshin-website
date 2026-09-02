@@ -1,0 +1,80 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import img1 from "../assets/OurTitok/titokImg1.png";
+import img2 from "../assets/OurTitok/titokImg2.png";
+import img3 from "../assets/OurTitok/titokImg3.png";
+import img4 from "../assets/OurTitok/titokImg4.png";
+import img5 from "../assets/OurTitok/titokImg5.png";
+---
+
+<section class="bg-cream">
+  <div class="mx-auto max-w-7xl px-6 py-24 text-center lg:px-10">
+    <div class="mx-auto flex w-fit items-center gap-3 text-primary">
+      <span class="h-px w-10 bg-primary"></span>
+      <span class="text-sm font-medium tracking-[0.2em]">ソーシャルメディア</span>
+      <span class="h-px w-10 bg-primary"></span>
+    </div>
+    <h2 class="font-display mt-4 text-4xl font-medium text-ink lg:text-5xl">
+      Our Tiktok
+    </h2>
+
+    <div class="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4 sm:grid-rows-2">
+      <div class="col-span-2 row-span-2 overflow-hidden rounded-2xl">
+        <Image
+          src={img1}
+          alt="Sushi platter styled for social media"
+          width={640}
+          height={640}
+          class="h-full max-h-[26rem] w-full object-cover sm:max-h-none"
+        />
+      </div>
+      <div class="overflow-hidden rounded-2xl">
+        <Image
+          src={img2}
+          alt="Sushi rolls close-up"
+          width={320}
+          height={320}
+          class="h-full w-full object-cover"
+        />
+      </div>
+      <div class="overflow-hidden rounded-2xl">
+        <Image
+          src={img3}
+          alt="Sushi preparation"
+          width={320}
+          height={320}
+          class="h-full w-full object-cover"
+        />
+      </div>
+      <div class="overflow-hidden rounded-2xl">
+        <Image
+          src={img4}
+          alt="Beverage pairing"
+          width={320}
+          height={320}
+          class="h-full w-full object-cover"
+        />
+      </div>
+      <div class="overflow-hidden rounded-2xl">
+        <Image
+          src={img5}
+          alt="Sushi roll detail"
+          width={320}
+          height={400}
+          class="h-full w-full object-cover"
+        />
+      </div>
+    </div>
+
+    <a
+      href="https://www.tiktok.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mt-10 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+    >
+      <Icon name="ph:tiktok-logo-fill" class="h-4 w-4" />
+      Follow Us
+    </a>
+  </div>
+</section>

@@ -1,0 +1,106 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import logo from "../assets/Home/myanshi_logo.png";
+import location1 from "../assets/VisitOurRestaurant/location1.png";
+import location2 from "../assets/VisitOurRestaurant/location2.png";
+import location3 from "../assets/VisitOurRestaurant/Location3.png";
+
+const socials = [
+  { label: "Facebook", href: "https://www.facebook.com", icon: "ph:facebook-logo-fill" },
+  { label: "Instagram", href: "https://www.instagram.com", icon: "ph:instagram-logo-fill" },
+  { label: "TikTok", href: "https://www.tiktok.com", icon: "ph:tiktok-logo-fill" },
+];
+
+const locations = [
+  { image: location1, alt: "Myanshi Bahan branch" },
+  { image: location2, alt: "Myanshi Sanchaung branch" },
+  { image: location3, alt: "Myanshi Yankin branch" },
+];
+---
+
+<footer id="contact" class="bg-ink text-white">
+  <div
+    class="mx-auto grid max-w-7xl gap-12 px-6 py-16 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 lg:px-10"
+  >
+    <div class="sm:col-span-2 lg:col-span-2">
+      <a href="/" class="flex items-center gap-2">
+        <Image src={logo} alt="Myanshi" width={36} height={36} class="h-9 w-9" />
+        <span class="font-display text-xl font-semibold tracking-wide">MYANSHI</span>
+      </a>
+      <p class="mt-5 max-w-sm text-sm leading-relaxed text-white/60">
+        Fresh flavors, perfect rolls — bringing authentic Japanese sushi to
+        Myanmar, only at MYANSHI.
+      </p>
+      <div class="mt-6 flex items-center gap-3">
+        {
+          socials.map((social) => (
+            <a
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={social.label}
+              class="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/80 transition-colors hover:border-primary hover:text-primary"
+            >
+              <Icon name={social.icon} class="h-4 w-4" />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <div>
+      <h3 class="text-sm font-semibold uppercase tracking-wide text-white/50">
+        Opening Times
+      </h3>
+      <dl class="mt-5 space-y-3 text-sm text-white/70">
+        <div class="flex justify-between gap-4">
+          <dt>Monday – Friday</dt>
+          <dd>9:00am – 9:00pm</dd>
+        </div>
+        <div class="flex justify-between gap-4">
+          <dt>Saturday – Sunday</dt>
+          <dd>10:00am – 10:00pm</dd>
+        </div>
+      </dl>
+      <div class="mt-6 flex items-start gap-2 text-sm text-white/70">
+        <Icon name="ph:phone" class="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+        <span>+95 9 123 456 789</span>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="text-sm font-semibold uppercase tracking-wide text-white/50">
+        Visit Us
+      </h3>
+      <p class="mt-5 flex items-start gap-2 text-sm text-white/70">
+        <Icon name="ph:map-pin" class="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+        No. 45, Pyidaungsu Yeiktha Road, Bahan Township, Yangon, Myanmar
+      </p>
+      <div class="mt-5 flex gap-3">
+        {
+          locations.map((location) => (
+            <div class="h-16 w-16 overflow-hidden rounded-xl">
+              <Image
+                src={location.image}
+                alt={location.alt}
+                width={128}
+                height={128}
+                class="h-full w-full object-cover"
+              />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div
+      class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-6 text-xs text-white/50 sm:flex-row lg:px-10"
+    >
+      <p>&copy; {new Date().getFullYear()} MYANSHI. All rights reserved.</p>
+      <p>Made with care in Yangon, Myanmar.</p>
+    </div>
+  </div>
+</footer>

@@ -1,12 +1,23 @@
 @import "tailwindcss";
 @import "@fontsource-variable/geist";
 @import "@fontsource-variable/geist-mono";
+@import "@fontsource-variable/playfair-display";
 
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --color-primary: #e0402e;
+  --color-primary-dark: #b5301f;
+  --color-ink: #0e0d0c;
+  --color-ink-soft: #17130f;
+  --color-cream: #fbf1ea;
+  --color-cream-soft: #f6e6dc;
+  --color-muted: #7a736d;
+
   --font-sans: "Geist Variable", Arial, Helvetica, sans-serif;
   --font-mono: "Geist Mono Variable", ui-monospace, monospace;
+  --font-display: "Playfair Display Variable", "Georgia", serif;
 }
 
 :root {
@@ -14,15 +25,12 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-sans);
+}
+
+.font-display {
+  font-family: var(--font-display);
 }

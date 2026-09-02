@@ -1,0 +1,145 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import testimonial1 from "../assets/testimonial/testimonial1.png";
+import testimonial2 from "../assets/testimonial/testimonial2.png";
+import testimonial3 from "../assets/testimonial/testimonial3.png";
+import ayeChan from "../assets/testimonial/Aye Chan.png";
+import nyeinChan from "../assets/testimonial/Nyein Chan.png";
+import soeMin from "../assets/testimonial/Soe Min.png";
+
+const slides = [
+  {
+    image: testimonial1,
+    quote: "The best sushi rolls ever",
+    body: "MYANSHI has redefined my sushi experience with their fresh ingredients and authentic flavors. Every visit feels like a taste of perfection.",
+    name: "Soe Min",
+    avatar: soeMin,
+  },
+  {
+    image: testimonial2,
+    quote: "Fresh, fast, and full of flavor",
+    body: "From the warm welcome to the last bite, every detail felt considered. It's become our go-to spot for date nights.",
+    name: "Aye Chan",
+    avatar: ayeChan,
+  },
+  {
+    image: testimonial3,
+    quote: "Authentic taste, right here in Yangon",
+    body: "I've tried sushi all over the city and MYANSHI is easily the most consistent. The quality never wavers.",
+    name: "Nyein Chan",
+    avatar: nyeinChan,
+  },
+];
+---
+
+<section class="bg-cream">
+  <div class="mx-auto max-w-7xl px-6 py-24 lg:px-10">
+    <div class="mx-auto max-w-2xl text-center">
+      <div class="mx-auto flex w-fit items-center gap-3 text-primary">
+        <span class="h-px w-10 bg-primary"></span>
+        <span class="text-sm font-medium tracking-[0.2em]">お客様の声</span>
+        <span class="h-px w-10 bg-primary"></span>
+      </div>
+      <h2 class="font-display mt-4 text-4xl font-medium text-ink lg:text-5xl">
+        What Our Clients Say
+      </h2>
+      <p class="mt-4 text-sm leading-relaxed text-muted">
+        Discover what our customers love about MYANSHI through their heartfelt
+        reviews. From delicious sushi to an inviting atmosphere, here's what
+        keeps them coming back.
+      </p>
+    </div>
+
+    <div class="relative mt-14 grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+      <div class="relative mx-auto w-full max-w-md overflow-hidden rounded-3xl">
+        {
+          slides.map((slide, index) => (
+            <Image
+              src={slide.image}
+              alt={`${slide.name} enjoying MYANSHI sushi`}
+              width={640}
+              height={720}
+              data-testimonial-image={index}
+              class:list={[
+                "h-[24rem] w-full object-cover sm:h-[28rem]",
+                index === 0 ? "block" : "hidden",
+              ]}
+            />
+          ))
+        }
+      </div>
+
+      <div>
+        <Icon name="ph:quotes-fill" class="h-10 w-10 text-primary/30" />
+
+        {
+          slides.map((slide, index) => (
+            <div
+              data-testimonial-panel={index}
+              class:list={["mt-4", index === 0 ? "block" : "hidden"]}
+            >
+              <p class="font-display text-2xl font-medium italic text-ink sm:text-3xl">
+                “{slide.quote}”
+              </p>
+              <p class="mt-4 max-w-md text-sm leading-relaxed text-muted">
+                {slide.body}
+              </p>
+              <div class="mt-6 flex items-center gap-3">
+                <Image
+                  src={slide.avatar}
+                  alt={slide.name}
+                  width={44}
+                  height={44}
+                  class="h-11 w-11 rounded-full object-cover"
+                />
+                <span class="text-sm font-semibold text-ink">{slide.name}</span>
+              </div>
+            </div>
+          ))
+        }
+
+        <div class="mt-9 flex items-center gap-4">
+          <button
+            id="testimonial-prev"
+            type="button"
+            aria-label="Previous testimonial"
+            class="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-ink transition-colors hover:border-primary hover:text-primary"
+          >
+            <Icon name="ph:caret-left" class="h-5 w-5" />
+          </button>
+          <button
+            id="testimonial-next"
+            type="button"
+            aria-label="Next testimonial"
+            class="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-ink transition-colors hover:border-primary hover:text-primary"
+          >
+            <Icon name="ph:caret-right" class="h-5 w-5" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const images = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-testimonial-image]"),
+  );
+  const panels = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-testimonial-panel]"),
+  );
+  const prevBtn = document.getElementById("testimonial-prev");
+  const nextBtn = document.getElementById("testimonial-next");
+
+  let active = 0;
+
+  const show = (index: number) => {
+    active = (index + panels.length) % panels.length;
+    images.forEach((el, i) => el.classList.toggle("hidden", i !== active));
+    panels.forEach((el, i) => el.classList.toggle("hidden", i !== active));
+  };
+
+  prevBtn?.addEventListener("click", () => show(active - 1));
+  nextBtn?.addEventListener("click", () => show(active + 1));
+</script>

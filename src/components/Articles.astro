@@ -1,0 +1,138 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import blogImg1 from "../assets/Blog&Article/blogImg1.jpg";
+import blogImg2 from "../assets/Blog&Article/blogImg2.png";
+import blogImg3 from "../assets/Blog&Article/blogImg3.jpeg";
+import sophieMoore from "../assets/AboutUs/sophieMoore.png";
+import johnCarter from "../assets/AboutUs/johnCarter.png";
+import emily from "../assets/AboutUs/Emily.png";
+
+const featured = {
+  title: "How to prepare a delicious gluten-free sushi",
+  excerpt:
+    "Discover the essentials of making gluten-free sushi at home. From seasoned rice to fresh fillings, learn how to create restaurant-quality sushi in your own kitchen.",
+  image: blogImg1,
+  author: "Sophie Moore",
+  avatar: sophieMoore,
+  date: "Sep 20, 2024",
+};
+
+const posts = [
+  {
+    title: "5 traditional Japanese desserts you need to try",
+    image: blogImg2,
+    author: "John Carter",
+    avatar: johnCarter,
+    date: "Aug 12, 2024",
+  },
+  {
+    title: "The art of pairing sushi with the perfect drink",
+    image: blogImg3,
+    author: "Emily Tan",
+    avatar: emily,
+    date: "Jul 3, 2024",
+  },
+];
+---
+
+<section id="articles" class="bg-cream">
+  <div class="mx-auto max-w-7xl px-6 py-24 lg:px-10">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <div class="flex items-center gap-3 text-primary">
+          <span class="h-px w-10 bg-primary"></span>
+          <span class="text-sm font-medium tracking-[0.2em]">ブログ</span>
+        </div>
+        <h2 class="font-display mt-4 text-4xl font-medium text-ink lg:text-5xl">
+          Our Articles
+        </h2>
+      </div>
+      <a
+        href="#articles"
+        class="inline-flex items-center gap-2 rounded-full border border-ink/15 px-7 py-3.5 text-sm font-semibold text-ink transition-colors hover:border-primary hover:text-primary"
+      >
+        All Articles
+      </a>
+    </div>
+
+    <article
+      class="mt-12 flex flex-col gap-8 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-ink/5 lg:flex-row lg:items-center lg:gap-12 lg:p-8"
+    >
+      <div class="flex-1">
+        <div class="flex items-center gap-3">
+          <Image
+            src={featured.avatar}
+            alt={featured.author}
+            width={36}
+            height={36}
+            class="h-9 w-9 rounded-full object-cover"
+          />
+          <span class="text-sm font-medium text-ink">{featured.author}</span>
+          <span class="text-sm text-muted">— {featured.date}</span>
+        </div>
+        <h3 class="font-display mt-5 text-2xl font-medium text-ink sm:text-3xl">
+          {featured.title}
+        </h3>
+        <p class="mt-4 max-w-lg text-sm leading-relaxed text-muted">
+          {featured.excerpt}
+        </p>
+        <a
+          href="#articles"
+          class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-dark"
+        >
+          Read More
+          <Icon name="ph:arrow-right" class="h-4 w-4" />
+        </a>
+      </div>
+      <div class="w-full overflow-hidden rounded-2xl lg:w-80 lg:flex-shrink-0">
+        <Image
+          src={featured.image}
+          alt={featured.title}
+          width={640}
+          height={520}
+          class="h-56 w-full object-cover lg:h-64"
+        />
+      </div>
+    </article>
+
+    <div class="mt-8 grid gap-8 sm:grid-cols-2">
+      {
+        posts.map((post) => (
+          <article class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-ink/5">
+            <Image
+              src={post.image}
+              alt={post.title}
+              width={640}
+              height={360}
+              class="h-48 w-full object-cover"
+            />
+            <div class="p-6">
+              <div class="flex items-center gap-3">
+                <Image
+                  src={post.avatar}
+                  alt={post.author}
+                  width={32}
+                  height={32}
+                  class="h-8 w-8 rounded-full object-cover"
+                />
+                <span class="text-sm font-medium text-ink">{post.author}</span>
+                <span class="text-sm text-muted">— {post.date}</span>
+              </div>
+              <h3 class="font-display mt-4 text-xl font-medium text-ink">
+                {post.title}
+              </h3>
+              <a
+                href="#articles"
+                class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-dark"
+              >
+                Read More
+                <Icon name="ph:arrow-right" class="h-4 w-4" />
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
