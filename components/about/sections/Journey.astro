@@ -1,0 +1,51 @@
+---
+import { Image } from "astro:assets";
+import chefImg from "../../../assets/blog-img/blogImg3.jpeg";
+import sushiImg from "../../../assets/menu-img/Migiri Sushi.jpg";
+---
+
+<section id="journey" class="bg-cream">
+  <div
+    class="mx-auto grid max-w-7xl gap-12 px-6 py-24 lg:grid-cols-2 lg:items-center lg:gap-20 lg:px-10"
+  >
+    <div>
+      <div class="flex items-center gap-3 text-primary">
+        <span class="h-px w-10 bg-primary"></span>
+        <span class="text-sm font-medium tracking-[0.2em]">伝統から未来へ</span>
+      </div>
+      <h2 class="font-display mt-4 text-4xl font-medium text-ink lg:text-5xl">
+        The MYANSHI Journey
+      </h2>
+      <p class="mt-5 max-w-md text-base leading-relaxed text-muted">
+        At MYANSHI, every sushi roll tells a story of tradition,
+        craftsmanship, and passion. Rooted in the rich heritage of Japanese
+        culinary artistry and inspired by the vibrant culture of Myanmar, we
+        bring you a dining experience like no other. From the precise hands
+        of our chefs to the carefully selected ingredients, MYANSHI is where
+        the past meets the present, creating unforgettable moments one bite
+        at a time.
+      </p>
+    </div>
+
+    <div class="relative mx-auto grid max-w-md grid-cols-2 gap-4 lg:mx-0">
+      <div class="overflow-hidden rounded-3xl">
+        <Image
+          src={chefImg}
+          alt="Myanshi chef preparing sushi"
+          width={400}
+          height={520}
+          class="h-64 w-full object-cover sm:h-80"
+        />
+      </div>
+      <div class="mt-10 overflow-hidden rounded-3xl">
+        <Image
+          src={sushiImg}
+          alt="Freshly prepared nigiri sushi"
+          width={400}
+          height={520}
+          class="h-64 w-full object-cover sm:h-80"
+        />
+      </div>
+    </div>
+  </div>
+</section>

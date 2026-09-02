@@ -1,0 +1,41 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  title: string;
+  crumb: string;
+  image: ImageMetadata;
+}
+
+const { title, crumb, image } = Astro.props;
+---
+
+<section class="relative bg-ink">
+  <Image
+    src={image}
+    alt=""
+    role="presentation"
+    width={image.width}
+    height={image.height}
+    class="absolute inset-0 h-full w-full object-cover opacity-60"
+  />
+  <div class="absolute inset-0 bg-linear-to-t from-ink via-ink/70 to-ink/50"></div>
+
+  <div
+    class="relative mx-auto flex max-w-7xl flex-col items-center px-6 py-28 text-center lg:px-10 lg:py-36"
+  >
+    <nav class="flex items-center gap-2 text-sm text-white/70">
+      <a href="/" class="flex items-center gap-1.5 hover:text-primary">
+        <Icon name="ph:house-duotone" class="h-4 w-4" />
+        Home
+      </a>
+      <Icon name="ph:caret-right" class="h-3.5 w-3.5" />
+      <span class="text-white">{crumb}</span>
+    </nav>
+    <h1 class="font-display mt-5 text-4xl font-medium text-white sm:text-5xl lg:text-6xl">
+      {title}
+    </h1>
+  </div>
+</section>

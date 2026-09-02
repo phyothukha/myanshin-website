@@ -1,0 +1,107 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import location1 from "../../../assets/location-img/location1.png";
+import location2 from "../../../assets/location-img/location2.png";
+import location3 from "../../../assets/location-img/Location3.png";
+import { locations } from "../../../data/locations";
+
+const images = [location1, location2, location3];
+const slides = locations.map((location, index) => ({
+  ...location,
+  image: images[index],
+}));
+---
+
+<section class="bg-cream">
+  <div class="mx-auto max-w-7xl px-6 py-24 lg:px-10">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <div class="flex items-center gap-3 text-primary">
+          <span class="h-px w-10 bg-primary"></span>
+          <span class="text-sm font-medium tracking-[0.2em]">レストラン</span>
+        </div>
+        <h2 class="font-display mt-4 text-4xl font-medium text-ink lg:text-5xl">
+          Visit Our Restaurants
+        </h2>
+      </div>
+      <div class="flex items-center gap-3">
+        <button
+          id="visit-prev"
+          type="button"
+          aria-label="Previous location"
+          class="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-ink transition-colors hover:border-primary hover:text-primary"
+        >
+          <Icon name="ph:caret-left" class="h-5 w-5" />
+        </button>
+        <button
+          id="visit-next"
+          type="button"
+          aria-label="Next location"
+          class="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-white transition-colors hover:bg-primary-dark"
+        >
+          <Icon name="ph:caret-right" class="h-5 w-5" />
+        </button>
+      </div>
+    </div>
+
+    <div
+      id="visit-track"
+      class="mt-12 grid auto-cols-[85%] grid-flow-col gap-6 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] snap-x snap-mandatory sm:auto-cols-[70%] lg:auto-cols-[60%] [&::-webkit-scrollbar]:hidden"
+    >
+      {
+        slides.map((slide) => (
+          <div class="relative aspect-4/3 snap-start overflow-hidden rounded-3xl sm:aspect-16/10">
+            <Image
+              src={slide.image}
+              alt={`Myanshi ${slide.name} branch`}
+              width={900}
+              height={600}
+              class="absolute inset-0 h-full w-full object-cover"
+            />
+            <div class="absolute inset-0 bg-linear-to-t from-ink/80 via-ink/10 to-transparent" />
+
+            <div class="absolute bottom-4 right-4 max-w-xs rounded-2xl bg-ink/90 p-6 text-white backdrop-blur">
+              <h3 class="font-display text-xl font-medium">{slide.name}</h3>
+              <div class="mt-4 space-y-2.5 text-sm text-white/75">
+                <p class="flex items-start gap-2">
+                  <Icon name="ph:map-pin" class="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  {slide.address}
+                </p>
+                <p class="flex items-center gap-2">
+                  <Icon name="ph:envelope" class="h-4 w-4 shrink-0 text-primary" />
+                  {slide.email}
+                </p>
+                <p class="flex items-center gap-2">
+                  <Icon name="ph:phone" class="h-4 w-4 shrink-0 text-primary" />
+                  {slide.phone}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  const track = document.getElementById("visit-track");
+  const prevBtn = document.getElementById("visit-prev");
+  const nextBtn = document.getElementById("visit-next");
+
+  if (track && prevBtn && nextBtn) {
+    const getCardWidth = () =>
+      track.firstElementChild instanceof HTMLElement
+        ? track.firstElementChild.getBoundingClientRect().width + 24
+        : track.clientWidth;
+
+    prevBtn.addEventListener("click", () => {
+      track.scrollBy({ left: -getCardWidth(), behavior: "smooth" });
+    });
+
+    nextBtn.addEventListener("click", () => {
+      track.scrollBy({ left: getCardWidth(), behavior: "smooth" });
+    });
+  }
+</script>

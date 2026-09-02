@@ -13,24 +13,57 @@ pnpm dev
 
 Open [http://localhost:4321](http://localhost:4321) with your browser to see the result.
 
-You can start editing the page by modifying [src/pages/index.astro](src/pages/index.astro). The page auto-updates as you edit the file.
+You can start editing the page by modifying [pages/index.astro](pages/index.astro). The page auto-updates as you edit the file.
 
 ## Project Structure
 
+Folders live at the project root (no `src/` wrapper), matching the layout used across our other sites:
+
 ```text
 /
-├── public/              # static assets served as-is
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro # shared <head>/meta + global styles
-│   ├── pages/
-│   │   └── index.astro  # site homepage (route: /)
-│   └── styles/
-│       └── global.css   # Tailwind import + theme tokens
+├── public/                    # static assets served as-is
+├── assets/                    # images, fonts, and icons, grouped per page/section
+│   ├── home-img/
+│   ├── about-page/
+│   ├── menu-img/
+│   ├── tiktok-img/
+│   ├── testimonial-img/
+│   ├── location-img/
+│   ├── blog-img/
+│   └── icons/                 # custom local icons for astro-icon
+├── components/
+│   ├── Header.astro           # shared across all pages
+│   ├── Footer.astro           # shared across all pages
+│   ├── PageHero.astro         # shared breadcrumb banner for inner pages
+│   ├── AboutUs.astro          # shared teaser, used on / and /about
+│   ├── TiktokGallery.astro    # shared, used on / and /about
+│   ├── home/sections/         # page-specific sections for the homepage
+│   │   ├── Hero.astro
+│   │   ├── MenuCategories.astro
+│   │   ├── Promotions.astro
+│   │   ├── Testimonials.astro
+│   │   ├── CtaBanner.astro
+│   │   └── Articles.astro
+│   └── about/sections/        # page-specific sections for /about
+│       ├── Highlights.astro
+│       ├── Journey.astro
+│       ├── Team.astro
+│       └── VisitRestaurants.astro
+├── data/
+│   └── locations.ts           # branch data, shared by Footer + VisitRestaurants
+├── layouts/
+│   └── Layout.astro           # shared <head>/meta, wraps Header + Footer
+├── pages/
+│   ├── index.astro            # homepage (route: /)
+│   └── about.astro            # about page (route: /about)
+├── styles/
+│   └── globals.css            # Tailwind import + theme tokens
 ├── astro.config.mjs
 ├── tsconfig.json
 └── package.json
 ```
+
+Each new page goes under `pages/`, reusing `layouts/Layout.astro` and pulling in its own `components/<page>/sections/` folder for page-specific sections. Anything reused across two or more pages (`Header`, `Footer`, `PageHero`, `AboutUs`, `TiktokGallery`) stays flat in `components/`; if a page-specific section starts getting reused elsewhere, promote it out of its `sections/` folder the same way.
 
 Fonts (Geist Sans / Geist Mono) are self-hosted via `@fontsource-variable/geist` and `@fontsource-variable/geist-mono`, matching the optimized loading `next/font` previously provided.
 

@@ -1,10 +1,11 @@
 ---
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
-import logo from "../assets/Home/myanshi_logo.png";
-import location1 from "../assets/VisitOurRestaurant/location1.png";
-import location2 from "../assets/VisitOurRestaurant/location2.png";
-import location3 from "../assets/VisitOurRestaurant/Location3.png";
+import logo from "../assets/home-img/myanshi_logo.png";
+import location1 from "../assets/location-img/location1.png";
+import location2 from "../assets/location-img/location2.png";
+import location3 from "../assets/location-img/Location3.png";
+import { locations } from "../data/locations";
 
 const socials = [
   { label: "Facebook", href: "https://www.facebook.com", icon: "ph:facebook-logo-fill" },
@@ -12,11 +13,11 @@ const socials = [
   { label: "TikTok", href: "https://www.tiktok.com", icon: "ph:tiktok-logo-fill" },
 ];
 
-const locations = [
-  { image: location1, alt: "Myanshi Bahan branch" },
-  { image: location2, alt: "Myanshi Sanchaung branch" },
-  { image: location3, alt: "Myanshi Yankin branch" },
-];
+const branchImages = [location1, location2, location3];
+const branches = locations.map((location, index) => ({
+  ...location,
+  image: branchImages[index],
+}));
 ---
 
 <footer id="contact" class="bg-ink text-white">
@@ -73,25 +74,27 @@ const locations = [
       <h3 class="text-sm font-semibold uppercase tracking-wide text-white/50">
         Visit Us
       </h3>
-      <p class="mt-5 flex items-start gap-2 text-sm text-white/70">
-        <Icon name="ph:map-pin" class="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-        No. 45, Pyidaungsu Yeiktha Road, Bahan Township, Yangon, Myanmar
-      </p>
-      <div class="mt-5 flex gap-3">
+      <ul class="mt-5 space-y-4">
         {
-          locations.map((location) => (
-            <div class="h-16 w-16 overflow-hidden rounded-xl">
-              <Image
-                src={location.image}
-                alt={location.alt}
-                width={128}
-                height={128}
-                class="h-full w-full object-cover"
-              />
-            </div>
+          branches.map((branch) => (
+            <li class="flex items-start gap-3">
+              <div class="h-12 w-12 shrink-0 overflow-hidden rounded-lg">
+                <Image
+                  src={branch.image}
+                  alt={`Myanshi ${branch.name} branch`}
+                  width={96}
+                  height={96}
+                  class="h-full w-full object-cover"
+                />
+              </div>
+              <div class="text-sm text-white/70">
+                <p class="font-medium text-white">{branch.name}</p>
+                <p class="mt-0.5 text-xs leading-relaxed">{branch.address}</p>
+              </div>
+            </li>
           ))
         }
-      </div>
+      </ul>
     </div>
   </div>
 

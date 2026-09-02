@@ -1,8 +1,14 @@
 ---
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
-import journeyLarge from "../assets/AboutUs/Myanshi Journey 1.jpg";
-import journeySmall from "../assets/AboutUs/Myanshi Journey 2.jpg";
+import journeyLarge from "../assets/about-page/Myanshi Journey 1.jpg";
+import journeySmall from "../assets/about-page/Myanshi Journey 2.jpg";
+
+interface Props {
+  cta?: { label: string; href: string } | false;
+}
+
+const { cta = { label: "See More", href: "/about" } } = Astro.props;
 
 const highlights = [
   "Experience the rich traditions of Japanese culinary art",
@@ -82,12 +88,16 @@ const highlights = [
         }
       </ul>
 
-      <a
-        href="#about"
-        class="mt-9 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
-      >
-        See More
-      </a>
+      {
+        cta && (
+          <a
+            href={cta.href}
+            class="mt-9 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+          >
+            {cta.label}
+          </a>
+        )
+      }
     </div>
   </div>
 </section>
