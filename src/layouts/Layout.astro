@@ -1,0 +1,40 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const DEFAULT_TITLE = "Myanshi - Myanmar Sushi shop";
+const DEFAULT_DESCRIPTION =
+  "Discover the artistry of sushi at its finest. From fresh ingredients to time-honored techniques, every dish is crafted to delight your senses. Indulge in a journey of authentic flavors and modern twists, only at MYANSHI.";
+
+const { title = DEFAULT_TITLE, description = DEFAULT_DESCRIPTION } =
+  Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/myanshin.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="Phyo Thu Kha, phyothukha, myanmar sushi" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+  </head>
+  <body class="antialiased">
+    <slot />
+  </body>
+</html>
