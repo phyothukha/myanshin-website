@@ -13,9 +13,9 @@ export const locations: Location[] = [
     phone: "09 765 568 747",
   },
   {
-    name: "Sanchaung, Yangon",
-    address: "No.28, Baho Road, Sanchaung Township, Yangon",
-    email: "myanshi.sanchaung@gmail.com",
+    name: "Okkalapa (South), Yangon",
+    address: "No.800, Myittar Street, 13 Ward, South Okkalapa Township, Yangon",
+    email: "myanshi.okkalapa@gmail.com",
     phone: "09 765 568 748",
   },
   {

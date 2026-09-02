@@ -4,13 +4,17 @@ import { Icon } from "astro-icon/components";
 import logo from "../assets/home-img/myanshi_logo.png";
 
 const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Menu", href: "/#menu" },
-  { label: "Contact", href: "/#contact" },
-  { label: "Blog", href: "/#articles" },
-  { label: "Our Team", href: "/about#team" },
+  { label: "Home", href: "/", match: "/" },
+  { label: "About", href: "/about", match: "/about" },
+  { label: "Menu", href: "/menu", match: "/menu" },
+  { label: "Contact", href: "/#contact", match: null },
+  { label: "Blog", href: "/#articles", match: null },
+  { label: "Our Team", href: "/about#team", match: "/about" },
 ];
+
+const isActive = (match: string | null) =>
+  match !== null &&
+  (match === "/" ? Astro.url.pathname === "/" : Astro.url.pathname.startsWith(match));
 ---
 
 <header class="sticky top-0 z-50 bg-ink/95 backdrop-blur">
@@ -29,7 +33,13 @@ const navLinks = [
         navLinks.map((link) => (
           <a
             href={link.href}
-            class="text-sm font-medium uppercase tracking-wide text-white/80 transition-colors hover:text-primary"
+            aria-current={isActive(link.match) ? "page" : undefined}
+            class:list={[
+              "border-b-2 pb-1 text-sm font-medium uppercase tracking-wide transition-colors hover:text-primary",
+              isActive(link.match)
+                ? "border-primary text-primary"
+                : "border-transparent text-white/80",
+            ]}
           >
             {link.label}
           </a>
@@ -66,7 +76,11 @@ const navLinks = [
       navLinks.map((link) => (
         <a
           href={link.href}
-          class="rounded-lg px-3 py-2.5 text-sm font-medium uppercase tracking-wide text-white/80 transition-colors hover:bg-white/5 hover:text-primary"
+          aria-current={isActive(link.match) ? "page" : undefined}
+          class:list={[
+            "rounded-lg px-3 py-2.5 text-sm font-medium uppercase tracking-wide transition-colors hover:bg-white/5 hover:text-primary",
+            isActive(link.match) ? "text-primary" : "text-white/80",
+          ]}
         >
           {link.label}
         </a>

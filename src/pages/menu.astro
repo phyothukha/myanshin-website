@@ -1,0 +1,18 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Testimonials from "../components/Testimonials.astro";
+import MenuGrid from "../components/menu/sections/MenuGrid.astro";
+import heroImg from "../assets/home-img/heroImg.png";
+---
+
+<Layout
+  title="Menu - Myanshi"
+  description="Browse the full MYANSHI menu — sushi, dishes, drinks, and desserts, with current promotions across every branch."
+>
+  <main>
+    <PageHero title="Our Menu" crumb="Menu" image={heroImg} />
+    <MenuGrid />
+    <Testimonials />
+  </main>
+</Layout>

@@ -8,27 +8,31 @@ const categories = [
     title: "Sushi",
     description: "Fresh and handcrafted sushi, inspired by tradition.",
     icon: "ph:fish-duotone",
+    href: "/menu?filter=sushi",
   },
   {
     title: "Dishes",
     description:
       "Delicious, hearty dishes that bring the true taste of Japan to your table.",
     icon: "ph:cooking-pot-duotone",
+    href: "/menu?filter=dishes",
   },
   {
     title: "Drinks",
     description: "Refreshing drinks to enhance your meal, from classic teas to vibrant cocktails.",
     icon: "ph:wine-duotone",
+    href: "/menu?filter=drinks",
   },
   {
     title: "Desserts",
     description: "Sweet traditional Japanese desserts to finish your meal.",
     icon: "ph:cookie-duotone",
+    href: "/menu?filter=desserts",
   },
 ];
 ---
 
-<section id="menu" class="relative overflow-hidden bg-cream">
+<section id="browse-menu" class="relative overflow-hidden bg-cream">
   <Image
     src={ripple}
     alt=""
@@ -50,7 +54,7 @@ const categories = [
         Browse Menu
       </h2>
       <a
-        href="#menu"
+        href="/menu"
         class="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
       >
         See More
@@ -61,7 +65,7 @@ const categories = [
       {
         categories.map((category) => (
           <a
-            href="#menu"
+            href={category.href}
             class="group flex items-start gap-5 py-6 first:pt-0 last:pb-0"
           >
             <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">

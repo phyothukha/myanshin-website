@@ -1,0 +1,153 @@
+---
+import { Image } from "astro:assets";
+import { menuItems } from "../../../data/menu";
+
+const filters = [
+  { key: "all", label: "All" },
+  { key: "promotions", label: "Promotions" },
+  { key: "sushi", label: "Sushi" },
+  { key: "dishes", label: "Dishes" },
+  { key: "drinks", label: "Drinks" },
+  { key: "desserts", label: "Desserts" },
+];
+
+const items = menuItems.map((item) => ({
+  ...item,
+  discount: item.originalPrice
+    ? Math.round((1 - item.price / item.originalPrice) * 100)
+    : 0,
+}));
+
+const formatMMK = (value: number) => `${value.toLocaleString("en-US")} MMK`;
+---
+
+<section id="menu" class="bg-cream">
+  <div class="mx-auto max-w-7xl px-6 py-20 lg:px-10">
+    <div id="menu-filters" class="flex flex-wrap justify-center gap-3">
+      {
+        filters.map((filter, index) => (
+          <button
+            type="button"
+            data-filter={filter.key}
+            aria-pressed={index === 0}
+            class:list={[
+              "rounded-full border px-6 py-2.5 text-sm font-semibold uppercase tracking-wide transition-colors",
+              index === 0
+                ? "border-primary bg-primary text-white hover:bg-primary-dark"
+                : "border-ink/15 text-ink hover:border-primary hover:text-primary",
+            ]}
+          >
+            {filter.label}
+          </button>
+        ))
+      }
+    </div>
+
+    <div
+      id="menu-grid"
+      class="mt-12 grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-4"
+    >
+      {
+        items.map((item) => (
+          <article
+            data-category={item.category}
+            data-promo={item.discount > 0 ? "true" : "false"}
+            class="menu-card"
+          >
+            <div class="relative aspect-square overflow-hidden rounded-2xl">
+              <Image
+                src={item.image}
+                alt={item.name}
+                width={500}
+                height={500}
+                class="h-full w-full object-cover"
+              />
+              {item.discount > 0 && (
+                <span class="absolute left-3 top-3 rounded-full bg-primary px-2.5 py-1 text-xs font-semibold text-white">
+                  {item.discount}%
+                </span>
+              )}
+            </div>
+            <h3 class="font-display mt-4 text-base font-medium text-ink">
+              {item.name}
+            </h3>
+            <p class="mt-1 flex items-baseline gap-2">
+              <span class="text-sm font-semibold text-primary">
+                {formatMMK(item.price)}
+              </span>
+              {item.discount > 0 && (
+                <span class="text-xs text-muted line-through">
+                  {formatMMK(item.originalPrice!)}
+                </span>
+              )}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  const filterBar = document.getElementById("menu-filters");
+  const cards = Array.from(
+    document.querySelectorAll<HTMLElement>("#menu-grid .menu-card"),
+  );
+
+  const applyFilter = (filter: string, activeButton?: HTMLButtonElement) => {
+    const button =
+      activeButton ??
+      filterBar?.querySelector<HTMLButtonElement>(
+        `button[data-filter="${filter}"]`,
+      );
+    if (!filterBar || !button) return;
+
+    const activeClasses = ["border-primary", "bg-primary", "text-white", "hover:bg-primary-dark"];
+    const inactiveClasses = ["border-ink/15", "text-ink", "hover:border-primary", "hover:text-primary"];
+
+    filterBar
+      .querySelectorAll<HTMLButtonElement>("button[data-filter]")
+      .forEach((btn) => {
+        const active = btn === button;
+        btn.setAttribute("aria-pressed", String(active));
+        activeClasses.forEach((cls) => btn.classList.toggle(cls, active));
+        inactiveClasses.forEach((cls) => btn.classList.toggle(cls, !active));
+      });
+
+    cards.forEach((card) => {
+      const matches =
+        filter === "all" ||
+        (filter === "promotions"
+          ? card.dataset.promo === "true"
+          : card.dataset.category === filter);
+      card.classList.toggle("hidden", !matches);
+    });
+  };
+
+  filterBar?.addEventListener("click", (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLButtonElement>(
+      "button[data-filter]",
+    );
+    if (!button?.dataset.filter) return;
+
+    applyFilter(button.dataset.filter, button);
+
+    const url = new URL(window.location.href);
+    if (button.dataset.filter === "all") {
+      url.searchParams.delete("filter");
+    } else {
+      url.searchParams.set("filter", button.dataset.filter);
+    }
+    window.history.replaceState(null, "", url);
+  });
+
+  const requestedFilter = new URLSearchParams(window.location.search).get(
+    "filter",
+  );
+  if (
+    requestedFilter &&
+    filterBar?.querySelector(`button[data-filter="${requestedFilter}"]`)
+  ) {
+    applyFilter(requestedFilter);
+  }
+</script>

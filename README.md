@@ -38,25 +38,29 @@ Astro's standard `src/` convention. `public/` is the one exception — Astro req
 │   │   ├── PageHero.astro         # shared breadcrumb banner for inner pages
 │   │   ├── AboutUs.astro          # shared teaser, used on / and /about
 │   │   ├── TiktokGallery.astro    # shared, used on / and /about
+│   │   ├── Testimonials.astro     # shared, used on / and /menu
 │   │   ├── home/sections/         # page-specific sections for the homepage
 │   │   │   ├── Hero.astro
 │   │   │   ├── MenuCategories.astro
 │   │   │   ├── Promotions.astro
-│   │   │   ├── Testimonials.astro
 │   │   │   ├── CtaBanner.astro
 │   │   │   └── Articles.astro
-│   │   └── about/sections/        # page-specific sections for /about
-│   │       ├── Highlights.astro
-│   │       ├── Journey.astro
-│   │       ├── Team.astro
-│   │       └── VisitRestaurants.astro
+│   │   ├── about/sections/        # page-specific sections for /about
+│   │   │   ├── Highlights.astro
+│   │   │   ├── Journey.astro
+│   │   │   ├── Team.astro
+│   │   │   └── VisitRestaurants.astro
+│   │   └── menu/sections/         # page-specific sections for /menu
+│   │       └── MenuGrid.astro
 │   ├── data/
-│   │   └── locations.ts           # branch data, shared by Footer + VisitRestaurants
+│   │   ├── locations.ts           # branch data, shared by Footer + VisitRestaurants
+│   │   └── menu.ts                # menu catalog, shared by Promotions + MenuGrid
 │   ├── layouts/
 │   │   └── Layout.astro           # shared <head>/meta, wraps Header + Footer
 │   ├── pages/
 │   │   ├── index.astro            # homepage (route: /)
-│   │   └── about.astro            # about page (route: /about)
+│   │   ├── about.astro            # about page (route: /about)
+│   │   └── menu.astro             # full menu (route: /menu)
 │   └── styles/
 │       └── globals.css            # Tailwind import + theme tokens
 ├── astro.config.mjs
@@ -64,7 +68,9 @@ Astro's standard `src/` convention. `public/` is the one exception — Astro req
 └── package.json
 ```
 
-Each new page goes under `src/pages/`, reusing `src/layouts/Layout.astro` and pulling in its own `src/components/<page>/sections/` folder for page-specific sections. Anything reused across two or more pages (`Header`, `Footer`, `PageHero`, `AboutUs`, `TiktokGallery`) stays flat in `src/components/`; if a page-specific section starts getting reused elsewhere, promote it out of its `sections/` folder the same way.
+Each new page goes under `src/pages/`, reusing `src/layouts/Layout.astro` and pulling in its own `src/components/<page>/sections/` folder for page-specific sections. Anything reused across two or more pages (`Header`, `Footer`, `PageHero`, `AboutUs`, `TiktokGallery`, `Testimonials`) stays flat in `src/components/`; if a page-specific section starts getting reused elsewhere, promote it out of its `sections/` folder the same way. Content that multiple sections need (menu items, branch info) lives once in `src/data/` and gets imported wherever it's shown, instead of being re-typed per component.
+
+The Menu page's category filter (`MenuGrid.astro`) is client-rendered with a small inline script and supports deep links — `/menu?filter=drinks` pre-selects a tab on load, which is what the homepage's "Browse Menu" category rows link to.
 
 Fonts (Geist Sans / Geist Mono) are self-hosted via `@fontsource-variable/geist` and `@fontsource-variable/geist-mono`, matching the optimized loading `next/font` previously provided.
 
