@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import "../styles/globals.css";
 import { Image } from "astro:assets";
 import notFoundImg from "../assets/404.png";
@@ -13,6 +14,7 @@ import notFoundImg from "../assets/404.png";
     <meta name="generator" content={Astro.generator} />
     <title>404 - Page Not Found | Myanshi</title>
     <meta name="robots" content="noindex" />
+    <ClientRouter />
   </head>
   <body
     class="flex min-h-screen items-center justify-center bg-cream px-6 antialiased"

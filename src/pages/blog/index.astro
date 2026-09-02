@@ -20,7 +20,10 @@ import heroImg from "../../assets/home-img/heroImg.png";
         <div class="space-y-16">
           {
             blogPosts.map((post) => (
-              <article class="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-14">
+              <article
+                class="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-14"
+                data-reveal
+              >
                 <div class="flex-1">
                   <div class="flex items-center gap-3 text-sm text-muted">
                     <span class="font-medium text-ink">{post.author}</span>

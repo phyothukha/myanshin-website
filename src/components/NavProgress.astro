@@ -1,0 +1,48 @@
+---
+
+---
+
+<div
+  id="nav-progress-bar"
+  class="pointer-events-none fixed inset-x-0 top-0 z-[100] h-[3px] origin-left scale-x-0 bg-primary opacity-0"
+  style="transition-property: transform, opacity;"
+>
+</div>
+
+<script>
+  const flags = window as typeof window & { __navProgressInit?: boolean };
+
+  if (!flags.__navProgressInit) {
+    flags.__navProgressInit = true;
+
+    const getBar = () => document.getElementById("nav-progress-bar");
+    let hideTimer: ReturnType<typeof setTimeout> | undefined;
+
+    document.addEventListener("astro:before-preparation", () => {
+      const bar = getBar();
+      if (!bar) return;
+      clearTimeout(hideTimer);
+      // A view transition freezes the live page into a snapshot for the
+      // duration of the navigation, so this instant jump (not an animated
+      // grow) is what actually ends up visible while the next page loads.
+      bar.style.transitionDuration = "0ms";
+      bar.style.opacity = "1";
+      bar.style.transform = "scaleX(0.35)";
+    });
+
+    document.addEventListener("astro:page-load", () => {
+      const bar = getBar();
+      if (!bar) return;
+      bar.style.transitionDuration = "250ms";
+      bar.style.transform = "scaleX(1)";
+      hideTimer = setTimeout(() => {
+        bar.style.transitionDuration = "300ms";
+        bar.style.opacity = "0";
+        hideTimer = setTimeout(() => {
+          bar.style.transitionDuration = "0ms";
+          bar.style.transform = "scaleX(0)";
+        }, 300);
+      }, 200);
+    });
+  }
+</script>
