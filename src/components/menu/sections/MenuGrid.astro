@@ -102,8 +102,18 @@ const formatMMK = (value: number) => `${value.toLocaleString("en-US")} MMK`;
       );
     if (!filterBar || !button) return;
 
-    const activeClasses = ["border-primary", "bg-primary", "text-white", "hover:bg-primary-dark"];
-    const inactiveClasses = ["border-ink/15", "text-ink", "hover:border-primary", "hover:text-primary"];
+    const activeClasses = [
+      "border-primary",
+      "bg-primary",
+      "text-white",
+      "hover:bg-primary-dark",
+    ];
+    const inactiveClasses = [
+      "border-ink/15",
+      "text-ink",
+      "hover:border-primary",
+      "hover:text-primary",
+    ];
 
     filterBar
       .querySelectorAll<HTMLButtonElement>("button[data-filter]")

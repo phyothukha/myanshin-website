@@ -8,9 +8,21 @@ import location3 from "../assets/location-img/Location3.png";
 import { locations } from "../data/locations";
 
 const socials = [
-  { label: "Facebook", href: "https://www.facebook.com", icon: "ph:facebook-logo-fill" },
-  { label: "Instagram", href: "https://www.instagram.com", icon: "ph:instagram-logo-fill" },
-  { label: "TikTok", href: "https://www.tiktok.com", icon: "ph:tiktok-logo-fill" },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com",
+    icon: "ph:facebook-logo-fill",
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com",
+    icon: "ph:instagram-logo-fill",
+  },
+  {
+    label: "TikTok",
+    href: "https://www.tiktok.com",
+    icon: "ph:tiktok-logo-fill",
+  },
 ];
 
 const branchImages = [location1, location2, location3];
@@ -26,8 +38,16 @@ const branches = locations.map((location, index) => ({
   >
     <div class="sm:col-span-2 lg:col-span-2">
       <a href="/" class="flex items-center gap-2">
-        <Image src={logo} alt="Myanshi" width={36} height={36} class="h-9 w-9" />
-        <span class="font-display text-xl font-semibold tracking-wide">MYANSHI</span>
+        <Image
+          src={logo}
+          alt="Myanshi"
+          width={36}
+          height={36}
+          class="h-9 w-9"
+        />
+        <span class="font-display text-xl font-semibold tracking-wide"
+          >MYANSHI</span
+        >
       </a>
       <p class="mt-5 max-w-sm text-sm leading-relaxed text-white/60">
         Fresh flavors, perfect rolls — bringing authentic Japanese sushi to

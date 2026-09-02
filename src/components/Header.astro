@@ -14,7 +14,9 @@ const navLinks = [
 
 const isActive = (match: string | null) =>
   match !== null &&
-  (match === "/" ? Astro.url.pathname === "/" : Astro.url.pathname.startsWith(match));
+  (match === "/"
+    ? Astro.url.pathname === "/"
+    : Astro.url.pathname.startsWith(match));
 ---
 
 <header class="sticky top-0 z-50 bg-ink/95 backdrop-blur">
