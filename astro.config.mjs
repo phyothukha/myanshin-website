@@ -5,8 +5,7 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-  srcDir: ".",
-  integrations: [icon({ iconDir: "assets/icons" })],
+  integrations: [icon({ iconDir: "src/assets/icons" })],
   vite: {
     plugins: [tailwindcss()],
   },
