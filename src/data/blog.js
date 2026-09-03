@@ -1,4 +1,3 @@
-import type { ImageMetadata } from "astro";
 import blogImg1 from "../assets/blog-img/blogImg1.jpg";
 import blogImg2 from "../assets/blog-img/blogImg2.png";
 import blogImg3 from "../assets/blog-img/blogImg3.jpeg";
@@ -6,19 +5,7 @@ import blogImg4 from "../assets/blog-img/blogImg4.jpeg";
 import sophieMoore from "../assets/about-page/sophieMoore.png";
 import johnCarter from "../assets/about-page/johnCarter.png";
 
-export type ContentBlock =
-  | { type: "heading"; text: string }
-  | { type: "paragraph"; text: string }
-  | { type: "list"; items: string[] }
-  | { type: "image" };
-
-export interface Author {
-  role: string;
-  bio: string;
-  avatar: ImageMetadata;
-}
-
-export const authors: Record<string, Author> = {
+export const authors = {
   "Sophie Moore": {
     role: "Co Founder & Chef",
     bio: "Sophie Moore, Co-Founder and Chef, is the heart of our culinary vision. With passion and creativity, she blends tradition and innovation to deliver unforgettable flavors.",
@@ -31,18 +18,7 @@ export const authors: Record<string, Author> = {
   },
 };
 
-export interface BlogPost {
-  slug: string;
-  title: string;
-  shortTitle: string;
-  excerpt: string;
-  content: ContentBlock[];
-  author: string;
-  date: string;
-  image: ImageMetadata;
-}
-
-export const blogPosts: BlogPost[] = [
+export const blogPosts = [
   {
     slug: "gluten-free-sushi",
     title: "How to prepare a delicious gluten-free sushi",

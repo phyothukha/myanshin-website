@@ -5,7 +5,34 @@ import logo from "../assets/home-img/myanshi_logo.png";
 import location1 from "../assets/location-img/location1.png";
 import location2 from "../assets/location-img/location2.png";
 import location3 from "../assets/location-img/Location3.png";
-import { locations } from "../data/locations";
+
+interface Location {
+  name: string;
+  address: string;
+  email: string;
+  phone: string;
+}
+
+const locations: Location[] = [
+  {
+    name: "Bahan, Yangon",
+    address: "No.144, Dhammazedi Road, Bahan Township, Yangon",
+    email: "myanshi.bahan@gmail.com",
+    phone: "09 765 568 747",
+  },
+  {
+    name: "Okkalapa (South), Yangon",
+    address: "No.800, Myittar Street, 13 Ward, South Okkalapa Township, Yangon",
+    email: "myanshi.okkalapa@gmail.com",
+    phone: "09 765 568 748",
+  },
+  {
+    name: "Mandalay",
+    address: "No.900, Mahar Aungmyay Road, Pyigyitagon Township, Mandalay",
+    email: "myanshi.mandalay@gmail.com",
+    phone: "099 8752 664",
+  },
+];
 
 const socials = [
   {

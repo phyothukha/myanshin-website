@@ -3,7 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import PageHero from "../../components/PageHero.astro";
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
-import { blogPosts, authors } from "../../data/blog";
+import { blogPosts, authors } from "../../data/blog.js";
 
 export function getStaticPaths() {
   return blogPosts.map((post) => ({

@@ -1,5 +1,31 @@
 ---
-import { locations } from "../../../data/locations";
+interface Location {
+  name: string;
+  address: string;
+  email: string;
+  phone: string;
+}
+
+const locations: Location[] = [
+  {
+    name: "Bahan, Yangon",
+    address: "No.144, Dhammazedi Road, Bahan Township, Yangon",
+    email: "myanshi.bahan@gmail.com",
+    phone: "09 765 568 747",
+  },
+  {
+    name: "Okkalapa (South), Yangon",
+    address: "No.800, Myittar Street, 13 Ward, South Okkalapa Township, Yangon",
+    email: "myanshi.okkalapa@gmail.com",
+    phone: "09 765 568 748",
+  },
+  {
+    name: "Mandalay",
+    address: "No.900, Mahar Aungmyay Road, Pyigyitagon Township, Mandalay",
+    email: "myanshi.mandalay@gmail.com",
+    phone: "099 8752 664",
+  },
+];
 
 const fieldClass =
   "w-full border-b border-ink/15 bg-transparent pb-2 pt-1 text-sm text-ink placeholder:text-muted/70 focus:border-primary focus:outline-none";
