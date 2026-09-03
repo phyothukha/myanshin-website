@@ -1,0 +1,30 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import AboutUs from "../../components/AboutUs.astro";
+import TiktokGallery from "../../components/TiktokGallery.astro";
+import VisitRestaurants from "../../components/VisitRestaurants.astro";
+import Highlights from "./_sections/Highlights.astro";
+import Journey from "./_sections/Journey.astro";
+import Team from "./_sections/Team.astro";
+import aboutHeroImg from "../../assets/about-page/aboutHeroImg.jpg";
+---
+
+<Layout
+  title="About Us - Myanshi"
+  description="Learn the story behind MYANSHI, meet our team, and find a branch near you across Yangon and Mandalay."
+>
+  <main>
+    <PageHero
+      title="We are MYANSHI"
+      crumbs={[{ label: "About Us" }]}
+      image={aboutHeroImg}
+    />
+    <Highlights />
+    <AboutUs cta={false} />
+    <Journey />
+    <Team />
+    <VisitRestaurants />
+    <TiktokGallery />
+  </main>
+</Layout>

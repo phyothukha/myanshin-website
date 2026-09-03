@@ -32,30 +32,16 @@ Astro's standard `src/` convention. `public/` is the one exception — Astro req
 │   │   ├── location-img/
 │   │   ├── blog-img/
 │   │   └── icons/                 # custom local icons for astro-icon
-│   ├── components/
-│   │   ├── Header.astro           # shared across all pages
-│   │   ├── Footer.astro           # shared across all pages
+│   ├── components/                # only components shared by 2+ pages live here
+│   │   ├── Header.astro
+│   │   ├── Footer.astro
 │   │   ├── PageHero.astro         # shared breadcrumb banner for inner pages
 │   │   ├── Pagination.astro       # shared, used on /blog
 │   │   ├── AboutUs.astro          # shared teaser, used on / and /about
 │   │   ├── TiktokGallery.astro    # shared, used on /, /about, and /contact
 │   │   ├── Testimonials.astro     # shared, used on / and /menu
 │   │   ├── VisitRestaurants.astro # shared, used on /about and /contact
-│   │   ├── home/sections/         # page-specific sections for the homepage
-│   │   │   ├── Hero.astro
-│   │   │   ├── MenuCategories.astro
-│   │   │   ├── Promotions.astro
-│   │   │   ├── CtaBanner.astro
-│   │   │   └── Articles.astro
-│   │   ├── about/sections/        # page-specific sections for /about
-│   │   │   ├── Highlights.astro
-│   │   │   ├── Journey.astro
-│   │   │   └── Team.astro
-│   │   ├── menu/sections/         # page-specific sections for /menu
-│   │   │   └── MenuGrid.astro
-│   │   └── contact/sections/      # page-specific sections for /contact
-│   │       ├── BookingForm.astro
-│   │       └── Faq.astro
+│   │   └── NavProgress.astro      # shared, top-of-page navigation progress bar
 │   ├── data/
 │   │   ├── locations.ts           # branch data, shared by Footer + VisitRestaurants
 │   │   ├── menu.ts                # menu catalog, shared by Promotions + MenuGrid
@@ -64,9 +50,28 @@ Astro's standard `src/` convention. `public/` is the one exception — Astro req
 │   │   └── Layout.astro           # shared <head>/meta, wraps Header + Footer
 │   ├── pages/
 │   │   ├── index.astro            # homepage (route: /)
-│   │   ├── about.astro            # about page (route: /about)
-│   │   ├── menu.astro             # full menu (route: /menu)
-│   │   ├── contact.astro          # contact page (route: /contact)
+│   │   ├── 404.astro              # not-found page (must stay a flat file)
+│   │   ├── _sections/             # homepage-only sections (see below)
+│   │   │   ├── Hero.astro
+│   │   │   ├── MenuCategories.astro
+│   │   │   ├── Promotions.astro
+│   │   │   ├── CtaBanner.astro
+│   │   │   └── Articles.astro
+│   │   ├── about/
+│   │   │   ├── index.astro        # about page (route: /about)
+│   │   │   └── _sections/
+│   │   │       ├── Highlights.astro
+│   │   │       ├── Journey.astro
+│   │   │       └── Team.astro
+│   │   ├── menu/
+│   │   │   ├── index.astro        # full menu (route: /menu)
+│   │   │   └── _sections/
+│   │   │       └── MenuGrid.astro
+│   │   ├── contact/
+│   │   │   ├── index.astro        # contact page (route: /contact)
+│   │   │   └── _sections/
+│   │   │       ├── BookingForm.astro
+│   │   │       └── Faq.astro
 │   │   └── blog/
 │   │       ├── index.astro        # blog listing (route: /blog)
 │   │       └── [slug].astro       # one route per post (route: /blog/<slug>)
@@ -77,7 +82,11 @@ Astro's standard `src/` convention. `public/` is the one exception — Astro req
 └── package.json
 ```
 
-Each new page goes under `src/pages/`, reusing `src/layouts/Layout.astro` and pulling in its own `src/components/<page>/sections/` folder for page-specific sections. Anything reused across two or more pages (`Header`, `Footer`, `PageHero`, `Pagination`, `AboutUs`, `TiktokGallery`, `Testimonials`, `VisitRestaurants`) stays flat in `src/components/`; if a page-specific section starts getting reused elsewhere, promote it out of its `sections/` folder the same way. Content that multiple sections need (menu items, branch info, blog posts) lives once in `src/data/` and gets imported wherever it's shown, instead of being re-typed per component.
+A page's own sections live right next to it, in a `_sections/` folder inside that page's own directory (`src/pages/about/_sections/`, `src/pages/menu/_sections/`, etc.) — not under `src/components/`. The underscore prefix is load-bearing, not stylistic: Astro treats every file under `src/pages/` as a route by default, so a plain `sections/Highlights.astro` would compile into a real, public (and broken — no layout/header/footer) page at `/about/sections/highlights`. A leading `_` is Astro's documented way to exclude a file or folder from routing entirely, so `_sections/` stays purely organizational. The homepage (`src/pages/index.astro`) has no dedicated subfolder of its own, so its sections sit in `src/pages/_sections/` instead, alongside it.
+
+`src/components/` is reserved for components used by two or more pages (`Header`, `Footer`, `PageHero`, `Pagination`, `AboutUs`, `TiktokGallery`, `Testimonials`, `VisitRestaurants`, `NavProgress`). The moment a page-specific section in some `_sections/` folder starts getting reused elsewhere, promote it out into `src/components/` the same way. Content that multiple sections need regardless of where they live (menu items, branch info, blog posts) lives once in `src/data/` and gets imported wherever it's shown, instead of being re-typed per component.
+
+Every route is a folder with its own `index.astro` (`about/index.astro`, `menu/index.astro`, `contact/index.astro`, `blog/index.astro`) rather than a flat `about.astro` file, so a page that grows nested routes later (like `/blog/<slug>`) doesn't need restructuring — it's already a folder. `index.astro` (the homepage, `/`) and `404.astro` are the only exceptions: Astro resolves `src/pages/index.astro` as the folder's own index already, and `404.astro` must stay a flat file at the pages root for Astro to recognize it as the not-found page.
 
 `PageHero.astro` also exposes a default `<slot />` so a page can inject floating content over the banner — `/contact` uses it for the booking form card. The booking form itself has no backend: submitting it just swaps in a confirmation message client-side, nothing is actually sent or stored anywhere yet.
 

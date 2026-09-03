@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
-import { menuItems, type MenuItem } from "../../../data/menu";
+import { menuItems, type MenuItem } from "../../data/menu";
 
 const items = menuItems
   .filter((item): item is MenuItem & { originalPrice: number } =>
