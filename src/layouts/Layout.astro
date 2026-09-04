@@ -1,5 +1,6 @@
 ---
 import { ClientRouter } from "astro:transitions";
+import Analytics from "@vercel/analytics/astro";
 import "../styles/globals.css";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
@@ -38,6 +39,7 @@ const { title = DEFAULT_TITLE, description = DEFAULT_DESCRIPTION } =
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <ClientRouter />
+    <Analytics />
   </head>
   <body class="antialiased bg-background text-foreground">
     <NavProgress />
