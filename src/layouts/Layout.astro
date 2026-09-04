@@ -4,6 +4,7 @@ import "../styles/globals.css";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
 import NavProgress from "../components/NavProgress.astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 
 interface Props {
   title?: string;
@@ -44,6 +45,7 @@ const { title = DEFAULT_TITLE, description = DEFAULT_DESCRIPTION } =
     <Header />
     <slot />
     <Footer />
+    <SpeedInsights />
 
     <script>
       const flags = window as typeof window & { __scrollRevealInit?: boolean };
