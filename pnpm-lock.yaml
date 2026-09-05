@@ -25,6 +25,9 @@ importers:
       "@vercel/speed-insights":
         specifier: ^2.0.0
         version: 2.0.0
+      "@vercel/analytics":
+        specifier: ^2.0.1
+        version: 2.0.1
       astro:
         specifier: ^7.2.10
         version: 7.2.10(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(jiti@2.7.0)(yaml@2.9.0)
@@ -1311,6 +1314,13 @@ packages:
         integrity: sha512-jwkNcrTeafWxjmWq4AHBaptSqZiJkYU5adLC9QBSqeim0GcqDMgN5Ievh8OG1rJ6W3A4l1oiP7qr9CWxGuzu3w==,
       }
     peerDependencies:
+  "@vercel/analytics@2.0.1":
+    resolution:
+      {
+        integrity: sha512-MTQG6V9qQrt1tsDeF+2Uoo5aPjqbVPys1xvnIftXSJYG2SrwXRHnqEvVoYID7BTruDz4lCd2Z7rM1BdkUehk2g==,
+      }
+    peerDependencies:
+      "@remix-run/react": ^2
       "@sveltejs/kit": ^1 || ^2
       next: ">= 13"
       nuxt: ">= 3"
@@ -1319,6 +1329,8 @@ packages:
       vue: ^3
       vue-router: ^4
     peerDependenciesMeta:
+      "@remix-run/react":
+        optional: true
       "@sveltejs/kit":
         optional: true
       next:
@@ -3359,6 +3371,7 @@ snapshots:
   "@ungap/structured-clone@1.4.0": {}
 
   "@vercel/speed-insights@2.0.0": {}
+  "@vercel/analytics@2.0.1": {}
 
   am-i-vibing@0.4.0:
     dependencies:
