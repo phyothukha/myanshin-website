@@ -22,6 +22,9 @@ importers:
       "@tailwindcss/vite":
         specifier: ^4
         version: 4.3.3(vite@8.2.2(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0))
+      "@vercel/speed-insights":
+        specifier: ^2.0.0
+        version: 2.0.0
       "@vercel/analytics":
         specifier: ^2.0.1
         version: 2.0.1
@@ -1305,6 +1308,12 @@ packages:
         integrity: sha512-1mEZtMKPM09vDmQt5y7YvmN2+DFTP7Tg0EWXdic8/C6VRnpb33e4ghisCIE3WZjsE2N8mf+QV1Zqh7ZFYLWInQ==,
       }
 
+  "@vercel/speed-insights@2.0.0":
+    resolution:
+      {
+        integrity: sha512-jwkNcrTeafWxjmWq4AHBaptSqZiJkYU5adLC9QBSqeim0GcqDMgN5Ievh8OG1rJ6W3A4l1oiP7qr9CWxGuzu3w==,
+      }
+    peerDependencies:
   "@vercel/analytics@2.0.1":
     resolution:
       {
@@ -3361,6 +3370,7 @@ snapshots:
 
   "@ungap/structured-clone@1.4.0": {}
 
+  "@vercel/speed-insights@2.0.0": {}
   "@vercel/analytics@2.0.1": {}
 
   am-i-vibing@0.4.0:
