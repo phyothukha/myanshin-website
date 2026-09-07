@@ -2,10 +2,14 @@
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import icon from "astro-icon";
+import sitemap from "@astrojs/sitemap";
+
+const SITE_URL = "https://phyothukha-myanshin.vercel.app";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [icon({ iconDir: "src/assets/icons" })],
+  site: SITE_URL,
+  integrations: [icon({ iconDir: "src/assets/icons" }), sitemap()],
   vite: {
     plugins: [tailwindcss()],
   },

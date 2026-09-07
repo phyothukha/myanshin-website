@@ -1,23 +1,61 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import Analytics from "@vercel/analytics/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 import "../styles/globals.css";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
 import NavProgress from "../components/NavProgress.astro";
-import SpeedInsights from "@vercel/speed-insights/astro";
 
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
 }
 
 const DEFAULT_TITLE = "Myanshi - Myanmar Sushi shop";
 const DEFAULT_DESCRIPTION =
   "Discover the artistry of sushi at its finest. From fresh ingredients to time-honored techniques, every dish is crafted to delight your senses. Indulge in a journey of authentic flavors and modern twists, only at MYANSHI.";
+const DEFAULT_IMAGE = "/myanshin.svg";
 
-const { title = DEFAULT_TITLE, description = DEFAULT_DESCRIPTION } =
-  Astro.props;
+const {
+  title = DEFAULT_TITLE,
+  description = DEFAULT_DESCRIPTION,
+  image = DEFAULT_IMAGE,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(image, Astro.site);
+
+const restaurantSchema = {
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  name: "MYANSHI",
+  description: DEFAULT_DESCRIPTION,
+  url: Astro.site?.toString(),
+  servesCuisine: "Japanese",
+  priceRange: "$$",
+  address: [
+    {
+      "@type": "PostalAddress",
+      streetAddress: "No.144, Dhammazedi Road, Bahan Township",
+      addressLocality: "Yangon",
+      addressCountry: "MM",
+    },
+    {
+      "@type": "PostalAddress",
+      streetAddress: "No.800, Myittar Street, 13 Ward, South Okkalapa Township",
+      addressLocality: "Yangon",
+      addressCountry: "MM",
+    },
+    {
+      "@type": "PostalAddress",
+      streetAddress: "No.900, Mahar Aungmyay Road, Pyigyitagon Township",
+      addressLocality: "Mandalay",
+      addressCountry: "MM",
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -31,18 +69,27 @@ const { title = DEFAULT_TITLE, description = DEFAULT_DESCRIPTION } =
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="keywords" content="Phyo Thu Kha, phyothukha, myanmar sushi" />
+    <link rel="canonical" href={canonicalURL} />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:url" content={canonicalURL} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(restaurantSchema)}
+    />
     <ClientRouter />
     <Analytics />
   </head>
   <body class="antialiased bg-background text-foreground">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <NavProgress />
     <Header />
     <slot />

@@ -13,7 +13,7 @@ export function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const author = authors[post.author];
+const author = authors[post.author as keyof typeof authors];
 
 const socials = [
   {
@@ -35,7 +35,7 @@ const socials = [
 ---
 
 <Layout title={`${post.title} - Myanshi Blog`} description={post.excerpt}>
-  <main>
+  <main id="main-content">
     <PageHero
       title={post.title}
       crumbs={[{ label: "Blog", href: "/blog" }, { label: post.shortTitle }]}
@@ -63,7 +63,7 @@ const socials = [
             if (block.type === "list") {
               return (
                 <ol class="mt-4 list-decimal space-y-2 pl-5 text-base leading-relaxed text-muted marker:font-semibold marker:text-primary">
-                  {block.items.map((item) => (
+                  {block?.items?.map((item) => (
                     <li>{item}</li>
                   ))}
                 </ol>
